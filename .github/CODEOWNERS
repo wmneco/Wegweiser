@@ -1,0 +1,10 @@
+# Code owners for Wegweiser
+#
+# These users are the maintainers. Branch protection on `main` requires a
+# review from a code owner before a pull request can be merged, so only the
+# people listed here can approve changes to the default branch.
+#
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repository.
+* @wmneco

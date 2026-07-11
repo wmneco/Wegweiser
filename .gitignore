@@ -1,0 +1,34 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+wegweiser
+
+# Test binaries
+*.test
+
+# Coverage output
+*.out
+coverage.html
+
+# Go workspace
+go.work
+go.work.sum
+
+# Dependency directory
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# OpenSpec generated skills and commands
+.claude/commands/opsx/
+.claude/skills/openspec-*/
+.github/prompts/opsx-*.prompt.md
+.github/skills/openspec-*/
