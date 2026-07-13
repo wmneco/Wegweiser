@@ -11,3 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - API endpoint infrastructure: `redirectd` and `shortend` service binaries, each exposing a placeholder route (`GET /{code}`, `POST /api/shorten`) over a shared HTTP runtime (`internal/platform`) providing graceful lifecycle, request-ID/panic-recovery/request-logging middleware, a liveness health endpoint (`GET /healthz`), a consistent JSON error-response shape, structured logging, and environment-based configuration.
 - Makefile targets (`build`, `run-redirectd`, `run-shortend`, `test`, `lint`) mirroring CI checks.
+
+### Changed
+
+- Placeholder handlers for `GET /{code}` and `POST /api/shorten` now always return the standard `501 not_implemented` error shape, and middleware ordering now ensures panic requests still emit the standard request log entry.

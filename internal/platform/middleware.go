@@ -97,5 +97,5 @@ func requestLogger(logger *slog.Logger, next http.Handler) http.Handler {
 // Middleware wraps next with the baseline stack applied to every request:
 // request ID assignment, panic recovery, and request logging.
 func Middleware(logger *slog.Logger, next http.Handler) http.Handler {
-	return requestID(recoverPanic(logger, requestLogger(logger, next)))
+	return requestID(requestLogger(logger, recoverPanic(logger, next)))
 }

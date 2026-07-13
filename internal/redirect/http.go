@@ -19,8 +19,6 @@ func NewHandler(resolver Resolver) *Handler {
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	code := r.PathValue("code")
-	if _, err := h.resolver.Resolve(r.Context(), code); err != nil {
-		platform.WriteError(w, http.StatusNotImplemented, "not_implemented", "redirect is not yet implemented")
-		return
-	}
+	_, _ = h.resolver.Resolve(r.Context(), code)
+	platform.WriteError(w, http.StatusNotImplemented, "not_implemented", "redirect is not yet implemented")
 }

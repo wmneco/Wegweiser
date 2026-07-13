@@ -1,10 +1,12 @@
 package platform_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -66,4 +68,21 @@ func TestMiddleware_RecoversPanic(t *testing.T) {
 	require.NoError(t, json.Unmarshal(rec.Body.Bytes(), &body))
 	assert.NotEmpty(t, body.Code)
 	assert.NotEmpty(t, body.Message)
+}
+
+func TestMiddleware_LogsRequestAfterPanicRecovery(t *testing.T) {
+	var logs bytes.Buffer
+	logger := slog.New(slog.NewTextHandler(&logs, nil))
+
+	handler := platform.Middleware(logger, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		panic("boom")
+	}))
+
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	handler.ServeHTTP(rec, req)
+
+	assert.Contains(t, logs.String(), "msg=request")
+	assert.Contains(t, strings.ReplaceAll(logs.String(), " ", ""), "status=500")
 }
